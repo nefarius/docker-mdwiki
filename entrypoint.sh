@@ -1,7 +1,6 @@
 #!/bin/sh
 set -e
 
-HTDOCS=/srv/htdocs
 
 if [ "$1" = 'devd' ]; then
     if [ -z ${GIT_CLONE_URL+x} ]; then 
@@ -10,8 +9,13 @@ if [ "$1" = 'devd' ]; then
 	exit
     fi
 
-    git clone $GIT_CLONE_URL $HTDOCS
-    cp /srv/index.html $HTDOCS
+    git clone $GIT_CLONE_URL "${FS_SRV}/htdocs"
+    cp "${FS_SRV}/index.html" "${FS_SRV}/htdocs"
 fi
+
+envsubst < "${FS_OPT}/hooks.json.tpl" > "${FS_OPT}/hooks.json"
+webhook -hooks "${FS_OPT}/hooks.json" -verbose &
+
+echo "Invoking $@"
 
 exec "$@"
