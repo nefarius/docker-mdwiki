@@ -14,4 +14,5 @@ RUN chmod +x /entrypoint.sh
 EXPOSE 80/tcp
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["devd", "-a", "-l", "-w", "/srv/htdocs", "/srv/htdocs"]
+CMD ["devd", "-a", "-l", "-q", "-w", "/srv/htdocs", "/srv/htdocs"]
+

@@ -14,6 +14,4 @@ if [ "$1" = 'devd' ]; then
     cp /srv/index.html $HTDOCS
 fi
 
-echo "$@"
-
 exec "$@"
