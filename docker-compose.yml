@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  mdwiki:
+    image: nefarius/docker-mdwiki:latest
+    container_name: mdwiki
+    environment:
+      - GIT_CLONE_URL=https://github.com/ViGEm/docs.vigem.org.git
+      - WEBHOOK_ID=webhook
+      - WEBHOOK_SECRET=mysecret
+    ports:
+      - "127.0.0.1:8088:80"
+      - "127.0.0.1:9000:9000"
+    restart: always
+
