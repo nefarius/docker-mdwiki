@@ -19,8 +19,8 @@ docker run --name docker-mdwiki \
     -e GIT_CLONE_URL=https://github.com/ViGEm/docs.vigem.org.git \
     -e WEBHOOK_ID=webhook \
     -e WEBHOOK_SECRET=mysecret \
-    -p 8087:80 \
-    -p 9000:9000 \
+    -p 127.0.0.1:1601:80 \
+    -p 127.0.0.1:1602:9000 \
     -d nefarius/docker-mdwiki:latest
 ```
 
@@ -38,8 +38,8 @@ services:
       - WEBHOOK_ID=webhook
       - WEBHOOK_SECRET=mysecret
     ports:
-      - "127.0.0.1:8088:80"
-      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:1601:80"
+      - "127.0.0.1:1602:9000"
     restart: always
 
 ```
