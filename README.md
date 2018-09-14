@@ -1,8 +1,10 @@
 # docker-mdwiki
 
+Lightweight docker image hosting an [MDwiki](http://dynalon.github.io/mdwiki/#!index.md) instance with content fetched from a Git repository.
+
 ## About
 
-TBD
+`docker-mdwiki` is a simple and light container based on the [golang (Alpine) image](https://hub.docker.com/_/golang/). Upon startup it clones a specified Git repositository and serves its content with [devd](https://github.com/cortesi/devd). Additionally it listens for an incoming Github Webhook and automatically pulls changes upon receiving a push notification.
 
 ## Build
 
