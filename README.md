@@ -4,7 +4,7 @@ Lightweight docker image hosting an [MDwiki](http://dynalon.github.io/mdwiki/#!i
 
 ## About
 
-`docker-mdwiki` is a simple and light container based on the [golang (Alpine) image](https://hub.docker.com/_/golang/). Upon startup it clones a specified Git repositository and serves its content with [devd](https://github.com/cortesi/devd). Additionally it listens for an incoming Github Webhook and automatically pulls changes upon receiving a push notification.
+`docker-mdwiki` is a simple and light container based on the [golang (Alpine) image](https://hub.docker.com/_/golang/). Upon startup it clones a specified Git repositository and serves its content with [devd](https://github.com/cortesi/devd). Additionally it listens for an incoming Github Webhook and automatically pulls changes upon receiving a push notification. Webhooks are processed by the included [webhook](https://github.com/adnanh/webhook) server.
 
 ## Build
 
@@ -19,8 +19,8 @@ docker build -t nefarius/docker-mdwiki https://github.com/nefarius/docker-mdwiki
 ```shell
 docker run --name docker-mdwiki \
     -e GIT_CLONE_URL=https://github.com/ViGEm/docs.vigem.org.git \
-    -e WEBHOOK_ID=webhook \
-    -e WEBHOOK_SECRET=mysecret \
+    -e WEBHOOK_ID=4648cc7a-f8aa-4705-90a2-d7958d57d462 \
+    -e WEBHOOK_SECRET=y9b3nTwR95ejCgNZ \
     -p 127.0.0.1:1601:80 \
     -p 127.0.0.1:1602:9000 \
     -d nefarius/docker-mdwiki:latest
@@ -37,8 +37,8 @@ services:
     container_name: mdwiki
     environment:
       - GIT_CLONE_URL=https://github.com/ViGEm/docs.vigem.org.git
-      - WEBHOOK_ID=webhook
-      - WEBHOOK_SECRET=mysecret
+      - WEBHOOK_ID=4648cc7a-f8aa-4705-90a2-d7958d57d462
+      - WEBHOOK_SECRET=y9b3nTwR95ejCgNZ
     ports:
       - "127.0.0.1:1601:80"
       - "127.0.0.1:1602:9000"
@@ -60,8 +60,8 @@ server {
     proxy_pass http://127.0.0.1:1601;
   }
 
-  location ~* ^/hooks/(.*) {
-    proxy_pass http://127.0.0.1:1602/hooks/$1$is_args$args;
+  location /hooks {
+    proxy_pass http://127.0.0.1:1602;
   }
 }
 ```
