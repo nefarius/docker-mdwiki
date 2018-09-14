@@ -70,6 +70,6 @@ server {
 
 Variable | Value (example)
 --- | ---
-`GIT_CLONE_URL` | `https://github.com/nefarius/docker-mdwiki.git`
+`GIT_CLONE_URL` | `https://github.com/ViGEm/docs.vigem.org.git`
 `WEBHOOK_ID` | `webhookid`
 `WEBHOOK_SECRET` | `mysecret`
