@@ -17,7 +17,8 @@ docker build -t nefarius/docker-mdwiki https://github.com/nefarius/docker-mdwiki
 ### Standalone
 
 ```shell
-docker run --name docker-mdwiki \
+docker run --name=docker-mdwiki \
+    --restart=always \
     -e GIT_CLONE_URL=https://github.com/ViGEm/docs.vigem.org.git \
     -e WEBHOOK_ID=4648cc7a-f8aa-4705-90a2-d7958d57d462 \
     -e WEBHOOK_SECRET=y9b3nTwR95ejCgNZ \
