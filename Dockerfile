@@ -4,7 +4,7 @@ LABEL maintainer="nefarius@dhmx.at"
 ENV FS_OPT=/opt
 ENV FS_SRV=/srv
 
-RUN apk --update add git gettext
+RUN apk --update add git gettext supervisor
 
 RUN go get github.com/cortesi/devd/cmd/devd
 RUN go get github.com/adnanh/webhook
@@ -20,9 +20,11 @@ RUN chmod +x ${FS_OPT}/handle-webhook.sh
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+COPY supervisord.conf /etc/supervisord.conf
+
 EXPOSE 80/tcp
 EXPOSE 9000/tcp
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["devd", "-a", "-l", "-w", "/srv/htdocs", "/srv/htdocs"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 

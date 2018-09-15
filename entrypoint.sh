@@ -2,7 +2,7 @@
 set -e
 
 
-if [ "$1" = 'devd' ]; then
+if [ "$1" = '/usr/bin/supervisord' ]; then
     if [ -z ${GIT_CLONE_URL+x} ]; then 
         echo "No git repository URL to clone specified, can't serve content"
 	echo "Please provide GIT_CLONE_URL environment variable"
@@ -14,8 +14,5 @@ if [ "$1" = 'devd' ]; then
 fi
 
 envsubst < "${FS_OPT}/hooks.json.tpl" > "${FS_OPT}/hooks.json"
-webhook -hooks "${FS_OPT}/hooks.json" -verbose &
-
-echo "Invoking $@"
 
 exec "$@"
