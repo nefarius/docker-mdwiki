@@ -5,8 +5,8 @@ set -e
 if [ "$1" = '/usr/bin/supervisord' ]; then
     if [ -z ${GIT_CLONE_URL+x} ]; then 
         echo "No git repository URL to clone specified, can't serve content"
-	echo "Please provide GIT_CLONE_URL environment variable"
-	exit
+        echo "Please provide GIT_CLONE_URL environment variable"
+        exit
     fi
 
     rm -rf "${FS_SRV}/htdocs"
