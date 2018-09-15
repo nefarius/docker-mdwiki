@@ -9,6 +9,7 @@ if [ "$1" = '/usr/bin/supervisord' ]; then
 	exit
     fi
 
+    rm -rf "${FS_SRV}/htdocs"
     git clone $GIT_CLONE_URL "${FS_SRV}/htdocs"
     cp "${FS_SRV}/index.html" "${FS_SRV}/htdocs"
 fi
