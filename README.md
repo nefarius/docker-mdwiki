@@ -4,7 +4,7 @@ Lightweight docker image hosting an [MDwiki](http://dynalon.github.io/mdwiki/#!i
 
 ## About
 
-`docker-mdwiki` is a simple and light container based on the [golang (Alpine) image](https://hub.docker.com/_/golang/). Upon startup it clones a specified GitHub repositository and serves its content with [devd](https://github.com/cortesi/devd). Additionally it listens for an incoming Github Webhook and automatically pulls changes upon receiving a push notification. Webhooks are processed by the included [webhook](https://github.com/adnanh/webhook) server. These services are managed by [supervisord](http://supervisord.org/).
+`docker-mdwiki` is a simple and light container based on the [golang (Alpine) image](https://hub.docker.com/_/golang/). Upon startup it clones a specified GitHub repositository and serves its content with [devd](https://github.com/cortesi/devd). Additionally it listens for an incoming Github Webhook and automatically pulls changes upon receiving a push notification. Webhooks are processed by the included [webhook](https://github.com/adnanh/webhook) server. These services are managed by [supervisord](http://supervisord.org/). The services themselves run under an unprivileged user.
 
 ## Build
 
