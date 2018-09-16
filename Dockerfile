@@ -1,10 +1,11 @@
 FROM golang:alpine
 LABEL maintainer="nefarius@dhmx.at"
 
+ENV USER=docker-mdwiki
 ENV FS_OPT=/opt
 ENV FS_SRV=/srv
 
-RUN apk --update add git gettext supervisor
+RUN apk --update add git gettext supervisor sudo
 
 RUN go get github.com/cortesi/devd/cmd/devd
 RUN go get github.com/adnanh/webhook
@@ -26,5 +27,5 @@ EXPOSE 80/tcp
 EXPOSE 9000/tcp
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
 

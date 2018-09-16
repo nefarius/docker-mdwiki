@@ -2,4 +2,4 @@
 set -e
 
 cd "${FS_SRV}/htdocs"
-git pull
+sudo -u "${USER}" git pull
