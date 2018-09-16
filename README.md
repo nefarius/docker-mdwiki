@@ -22,7 +22,7 @@ docker run --name=docker-mdwiki \
     -e GIT_CLONE_URL=https://github.com/ViGEm/docs.vigem.org.git \
     -e WEBHOOK_ID=4648cc7a-f8aa-4705-90a2-d7958d57d462 \
     -e WEBHOOK_SECRET=y9b3nTwR95ejCgNZ \
-    -p 127.0.0.1:1601:80 \
+    -p 127.0.0.1:1601:8000 \
     -p 127.0.0.1:1602:9000 \
     -d nefarius/docker-mdwiki:latest
 ```
@@ -41,7 +41,7 @@ services:
       - WEBHOOK_ID=4648cc7a-f8aa-4705-90a2-d7958d57d462
       - WEBHOOK_SECRET=y9b3nTwR95ejCgNZ
     ports:
-      - "127.0.0.1:1601:80"
+      - "127.0.0.1:1601:8000"
       - "127.0.0.1:1602:9000"
     restart: always
 
@@ -72,11 +72,3 @@ server {
 ## GitHub Webhook example configuration
 
 ![Webhook](https://lssotw.am.files.1drv.com/y4mHRukV8maB7RQMoudcOLM5AydCv9LvszwvLYk-_zhItcnEwJ-KPVuzUx6iWbgNzg3o_4DMeUtc9_03lx7038KoDguY4Bl4jQu1qRYfAHwsZZXHVS8mT_-kfojAzf1B0CjpVPIkhapmNyNTooySHSWy2LRUt2wmvamaDpit56sXUBJup0LvDsdJSkrr1y5R7ad799dhbrviopbw3Bfupii5w?width=574&height=641&cropmode=none)
-
-## Environment variables
-
-Variable | Value (example)
---- | ---
-`GIT_CLONE_URL` | `https://github.com/ViGEm/docs.vigem.org.git`
-`WEBHOOK_ID` | `webhookid`
-`WEBHOOK_SECRET` | `mysecret`
