@@ -1,10 +1,10 @@
 # docker-mdwiki
 
-Lightweight docker image hosting an [MDwiki](http://dynalon.github.io/mdwiki/#!index.md) instance with content fetched from a Git repository.
+Lightweight docker image hosting an [MDwiki](http://dynalon.github.io/mdwiki/#!index.md) instance with content fetched from a GitHub repository.
 
 ## About
 
-`docker-mdwiki` is a simple and light container based on the [golang (Alpine) image](https://hub.docker.com/_/golang/). Upon startup it clones a specified Git repositository and serves its content with [devd](https://github.com/cortesi/devd). Additionally it listens for an incoming Github Webhook and automatically pulls changes upon receiving a push notification. Webhooks are processed by the included [webhook](https://github.com/adnanh/webhook) server.
+`docker-mdwiki` is a simple and light container based on the [golang (Alpine) image](https://hub.docker.com/_/golang/). Upon startup it clones a specified GitHub repositository and serves its content with [devd](https://github.com/cortesi/devd). Additionally it listens for an incoming Github Webhook and automatically pulls changes upon receiving a push notification. Webhooks are processed by the included [webhook](https://github.com/adnanh/webhook) server. These services are managed by [supervisord](http://supervisord.org/).
 
 ## Build
 
@@ -49,6 +49,8 @@ services:
 
 ## Nginx as reverse proxy
 
+This snippet exposes the Wiki at the root of `http://example.org` while a push notification can be sent to `http://example.org/hooks/4648cc7a-f8aa-4705-90a2-d7958d57d462` (matching the ID referenced in the environment variable).
+
 ```
 server {
   listen 80;
@@ -66,6 +68,10 @@ server {
   }
 }
 ```
+
+## GitHub Webhook example configuration
+
+![Webhook](https://lssotw.am.files.1drv.com/y4mHRukV8maB7RQMoudcOLM5AydCv9LvszwvLYk-_zhItcnEwJ-KPVuzUx6iWbgNzg3o_4DMeUtc9_03lx7038KoDguY4Bl4jQu1qRYfAHwsZZXHVS8mT_-kfojAzf1B0CjpVPIkhapmNyNTooySHSWy2LRUt2wmvamaDpit56sXUBJup0LvDsdJSkrr1y5R7ad799dhbrviopbw3Bfupii5w?width=574&height=641&cropmode=none)
 
 ## Environment variables
 
