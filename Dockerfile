@@ -1,14 +1,28 @@
-FROM golang:alpine
+### Build stage
+FROM golang:alpine as builder
+
+RUN apk --update --no-cache add git
+
+RUN go get github.com/cortesi/devd/cmd/devd
+RUN go get github.com/adnanh/webhook
+
+
+## Release stage
+FROM alpine:3.8
 LABEL maintainer="nefarius@dhmx.at"
 
 ENV USER=docker-mdwiki
 ENV FS_OPT=/opt
 ENV FS_SRV=/srv
 
-RUN apk --update add git gettext supervisor sudo
+RUN apk --update --no-cache add \
+      git \
+      gettext \
+      supervisor \
+      sudo ;
 
-RUN go get github.com/cortesi/devd/cmd/devd
-RUN go get github.com/adnanh/webhook
+COPY --from=builder /go/bin/webhook /usr/bin/webhook
+COPY --from=builder /go/bin/devd /usr/bin/devd
 
 RUN mkdir -p ${FS_OPT}
 
@@ -23,7 +37,9 @@ RUN chmod +x /entrypoint.sh
 
 COPY assets/supervisord.conf /etc/supervisord.conf
 
-EXPOSE 80/tcp
+# devd
+EXPOSE 8000/tcp
+# webhook
 EXPOSE 9000/tcp
 
 ENTRYPOINT ["/entrypoint.sh"]
