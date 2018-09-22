@@ -12,16 +12,16 @@ RUN go get github.com/adnanh/webhook
 
 RUN mkdir -p ${FS_OPT}
 
-COPY index.html ${FS_SRV}
+COPY assets/index.html ${FS_SRV}
 
-COPY hooks.json.tpl ${FS_OPT}
-COPY handle-webhook.sh ${FS_OPT}
+COPY assets/hooks.json.tpl ${FS_OPT}
+COPY assets/handle-webhook.sh ${FS_OPT}
 RUN chmod +x ${FS_OPT}/handle-webhook.sh
 
-COPY entrypoint.sh /entrypoint.sh
+COPY assets/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-COPY supervisord.conf /etc/supervisord.conf
+COPY assets/supervisord.conf /etc/supervisord.conf
 
 EXPOSE 80/tcp
 EXPOSE 9000/tcp
