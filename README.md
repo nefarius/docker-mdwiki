@@ -4,12 +4,12 @@ Lightweight docker image hosting an [MDwiki](http://dynalon.github.io/mdwiki/#!i
 
 ## About
 
-`docker-mdwiki` is a simple and light container based on the [golang (Alpine) image](https://hub.docker.com/_/golang/). Upon startup it clones a specified GitHub repositository and serves its content with [devd](https://github.com/cortesi/devd). Additionally it listens for an incoming Github Webhook and automatically pulls changes upon receiving a push notification. Webhooks are processed by the included [webhook](https://github.com/adnanh/webhook) server. These services are managed by [supervisord](http://supervisord.org/). The services themselves run under an unprivileged user.
+`docker-mdwiki` is a simple and light container based on the [Linux Alpine image](https://hub.docker.com/_/alpine/). Upon startup it clones a specified GitHub repositository and serves its content with [devd](https://github.com/cortesi/devd). Additionally it listens for an incoming Github Webhook and automatically pulls changes upon receiving a push notification. Webhooks are processed by the included [webhook](https://github.com/adnanh/webhook) server. These services are managed by [supervisord](http://supervisord.org/). The services themselves run under an unprivileged user.
 
 ## Build
 
 ```shell
-docker build -t nefarius/docker-mdwiki https://github.com/nefarius/docker-mdwiki.git#master
+docker build -t containinger/docker-mdwiki https://github.com/nefarius/docker-mdwiki.git#master
 ```
 
 ## Run
@@ -24,7 +24,7 @@ docker run --name=docker-mdwiki \
     -e WEBHOOK_SECRET=y9b3nTwR95ejCgNZ \
     -p 127.0.0.1:1601:8000 \
     -p 127.0.0.1:1602:9000 \
-    -d nefarius/docker-mdwiki:latest
+    -d containinger/docker-mdwiki:latest
 ```
 
 ### Compose file
@@ -34,7 +34,7 @@ version: "3"
 
 services:
   mdwiki:
-    image: nefarius/docker-mdwiki:latest
+    image: containinger/docker-mdwiki:latest
     container_name: mdwiki
     environment:
       - GIT_CLONE_URL=https://github.com/ViGEm/docs.vigem.org.git
@@ -56,9 +56,6 @@ server {
   listen 80;
   server_name example.org;
 
-  access_log /var/log/nginx/example.org_access.log;
-  error_log /var/log/nginx/example.org_error.log;
-  
   location / {
     proxy_pass http://127.0.0.1:1601;
   }
